@@ -6,25 +6,25 @@ export class Server {
   private app: express.Application;
   private port: number;
 
-  static create(puerto: number): Server {
+  static create(port: number): Server {
     if (this.instance == null) {
-      this.instance = new Server(puerto);
+      this.instance = new Server(port);
     }
     return this.instance;
   }
 
-  private constructor(puerto: number) {
-    this.port = puerto;
+  private constructor(port: number) {
+    this.port = port;
     this.app = express();
-    this.config();
-    this.routes();
+    this.initializeServerConfig();
+    this.initializeGlobalRoutes();
   }
 
-  private config(): void {
+  private initializeServerConfig(): void {
     this.app.set('port', this.port);
   }
 
-  private routes(): void {
+  private initializeGlobalRoutes(): void {
     this.app.get('/', (req, res) => {
       res.send('Hello world');
     }
