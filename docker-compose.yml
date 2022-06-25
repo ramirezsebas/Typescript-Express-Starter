@@ -1,8 +1,20 @@
 version: '3.9'
 
 services:
-  web:
+  server:
+    container_name: node-server
     build: .
     command: yarn run start
     ports:
       - "3000:3000"
+  postgres:
+    container_name: postgres_container
+    image: postgres:14.1
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - 5434:5432
