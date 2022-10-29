@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  node_server:
+    image: node:latest
+    container_name: node_server
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./node_server:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+
+  postgres:
+    image: "postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+      POSTGRES_DB: "test"
